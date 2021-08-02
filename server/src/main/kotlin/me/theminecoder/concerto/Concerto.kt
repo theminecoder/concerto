@@ -15,7 +15,7 @@ class Concerto : JavaPlugin() {
     }
 
     override fun onEnable() {
-        MirrorManager
+        MirrorManager.javaClass // manual start
         server.pluginManager.registerEvents(ConnectionListener, this)
         server.scheduler.runTaskTimerAsynchronously(
             this,

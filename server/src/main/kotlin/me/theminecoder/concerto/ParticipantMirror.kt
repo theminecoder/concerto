@@ -67,9 +67,7 @@ class MirrorTask(private val player: Player) : Listener {
         }
     }
 
-    private fun sendUpdate() {
-        sendPacket(MirrorPlayerState(player))
-    }
+    private fun sendUpdate() = sendPacket(MirrorPlayerState(player))
 
     private fun updateIfPlayer(e: Entity, update: () -> Unit = { sendUpdate() }) {
         if (e == player) {
@@ -183,7 +181,7 @@ object MirrorManager {
         fixedRateTimer("NPC Cleaner", period = 1.seconds.toLong(TimeUnit.MILLISECONDS)) {
             val now = Instant.now()
             npcs.entries.removeIf {
-                it.value.exires.isBefore(now).also { _ -> it.value.npc.destroy() }
+                it.value.exires.isBefore(now).also { check -> if (check) it.value.npc.destroy() }
             }
         }
     }
