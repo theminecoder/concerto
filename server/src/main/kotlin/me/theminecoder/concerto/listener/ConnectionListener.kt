@@ -32,6 +32,11 @@ object ConnectionListener : Listener {
                 Material.COMPASS,
                 text("Server Switcher ", NamedTextColor.GREEN) +
                     text("(Right Click)", NamedTextColor.GRAY)))
+        ParticipantManager[event.player.uniqueId].selectedMerch.forEach { entry ->
+            ConcertConfig.current.merch.find { it.id == entry.value }!!.apply {
+                event.player.inventory.setItem(entry.key.asBukkit, this.toItem())
+            }
+        }
     }
 
     @EventHandler

@@ -49,10 +49,19 @@ data class Participant(
     var name: String,
     var nameLower: String = name.toLowerCase(), // Makes searching via commands better
     var gameMode: ParticipantGameMode = ParticipantGameMode.ADVENTURE,
-    val punishments: List<Punishment> = listOf(),
+    val punishments: List<Punishment> = mutableListOf(),
     val firstJoin: Instant = Instant.now(),
     var lastJoin: Instant = Instant.now(),
+    val foundMerch: List<String> = mutableListOf(),
+    val selectedMerch: Map<ParticipantMerchSlot, String> = mutableMapOf()
 )
+
+enum class ParticipantMerchSlot {
+    HELMET,
+    CHESTPLATE,
+    LEGGINGS,
+    BOOTS
+}
 
 enum class ParticipantGameMode {
     SURVIVAL,

@@ -4,8 +4,12 @@ import com.destroystokyo.paper.SkinParts
 import me.theminecoder.concerto.packets.MirrorLocation
 import me.theminecoder.concerto.packets.MirrorPlayerSkinLayer
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextColor
 import org.bukkit.*
+import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.LeatherArmorMeta
 import org.bukkit.util.Vector
 
 fun SkinParts.toMirrorMap() =
@@ -42,6 +46,43 @@ fun ParticipantGameMode.toBukkit() =
         ParticipantGameMode.ADVENTURE -> GameMode.SURVIVAL
         ParticipantGameMode.SPECTATOR -> GameMode.SURVIVAL
     }
+
+fun Merch.toItem() =
+    item(
+        Material.getMaterial(item)!!,
+        text(name, NamedTextColor.WHITE),
+        lore = lore.map { text(it, NamedTextColor.GRAY) }.toTypedArray())
+        .apply {
+            itemMeta =
+                itemMeta.also {
+                    if (color != null) {
+                        require(it is LeatherArmorMeta) { "Must be leather armor to use colors" }
+                        it.setColor(
+                            TextColor.fromHexString(color!!).let {
+                                Color.fromRGB(it!!.red(), it.green(), it.blue())
+                            })
+                    }
+                }
+        }
+
+val ParticipantMerchSlot.asBukkit: EquipmentSlot
+    get() =
+        when (this) {
+            ParticipantMerchSlot.HELMET -> EquipmentSlot.HEAD
+            ParticipantMerchSlot.CHESTPLATE -> EquipmentSlot.CHEST
+            ParticipantMerchSlot.LEGGINGS -> EquipmentSlot.LEGS
+            ParticipantMerchSlot.BOOTS -> EquipmentSlot.FEET
+        }
+
+val EquipmentSlot.asConcerto: ParticipantMerchSlot
+    get() =
+        when (this) {
+            EquipmentSlot.HEAD -> ParticipantMerchSlot.HELMET
+            EquipmentSlot.CHEST -> ParticipantMerchSlot.CHESTPLATE
+            EquipmentSlot.LEGS -> ParticipantMerchSlot.LEGGINGS
+            EquipmentSlot.FEET -> ParticipantMerchSlot.BOOTS
+            else -> throw IllegalArgumentException("Cannot use hand for equipment")
+        }
 
 fun item(material: Material, name: Component, vararg lore: Component, amount: Int = 1): ItemStack =
     ItemStack(material, amount).apply {

@@ -5,7 +5,11 @@ import kotlin.concurrent.fixedRateTimer
 import kotlin.time.ExperimentalTime
 import kotlin.time.seconds
 
-data class Config(val motd: String, val modes: List<ModeConfig> = listOf())
+data class Config(
+    val motd: String,
+    val modes: List<ModeConfig> = listOf(),
+    val merch: List<Merch> = listOf()
+)
 
 data class ModeConfig(
     val id: String,
@@ -14,6 +18,15 @@ data class ModeConfig(
     val switcherSlot: Int,
     val spawn: Position,
     val portalSpawn: Position?
+)
+
+data class Merch(
+    val id: String,
+    val name: String,
+    val item: String,
+    val slot: ParticipantMerchSlot,
+    val lore: List<String> = listOf(),
+    val color: String?
 )
 
 data class Position(val x: Double, val y: Double, val z: Double)
