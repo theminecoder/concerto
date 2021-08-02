@@ -1,0 +1,12 @@
+{
+  "id": "proxy",
+  "name": "Proxy",
+  "version": "@version@",
+  "main": "me.theminecoder.concerto.ConcertoProxy",
+  "dependencies": [
+    {
+      "id": "luckperms",
+      "optional": false
+    }
+  ]
+}

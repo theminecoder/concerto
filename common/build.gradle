@@ -1,0 +1,24 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.21'
+}
+
+group 'me.theminecoder'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'net.luckperms:api:5.3'
+    api "org.jetbrains.kotlin:kotlin-stdlib"
+    api "org.litote.kmongo:kmongo:4.2.8"
+    api "io.nats:jnats:2.11.5"
+    api "net.kyori:adventure-api:4.8.1"
+    api "net.kyori:adventure-text-serializer-gson:4.8.1"
+    api "net.kyori:adventure-extra-kotlin:4.8.1"
+    api 'net.dongliu:gson-java8-datatype:1.1.0'
+
+    api 'com.google.guava:guava:21.0'
+    api "com.google.code.gson:gson:2.8.7"
+}

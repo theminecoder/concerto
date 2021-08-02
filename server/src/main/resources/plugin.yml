@@ -1,0 +1,5 @@
+name: Concerto
+version: @version@
+main: me.theminecoder.concerto.Concerto
+api-version: 1.17
+authors: [ theminecoder ]

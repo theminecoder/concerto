@@ -1,0 +1,17 @@
+group 'me.theminecoder'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+subprojects { project ->
+    if (name != "common")
+        afterEvaluate {
+            tasks.jar.enabled = false
+            shadowJar {
+                archiveFileName = "${project.name}.jar"
+            }
+            build.dependsOn(shadowJar)
+        }
+}

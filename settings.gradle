@@ -1,0 +1,3 @@
+rootProject.name = 'concerto'
+include 'common', 'server', 'proxy'
+

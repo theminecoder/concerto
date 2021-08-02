@@ -1,0 +1,24 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.21'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+repositories {
+    mavenCentral()
+    maven { url = "https://repo.velocitypowered.com/releases/" }
+    maven { url = "https://libraries.minecraft.net/" }
+    maven { url = "https://repo.spongepowered.org/maven" }
+}
+
+dependencies {
+    compileOnly 'com.velocitypowered:velocity-api:3.0.0'
+    implementation project(":common")
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
