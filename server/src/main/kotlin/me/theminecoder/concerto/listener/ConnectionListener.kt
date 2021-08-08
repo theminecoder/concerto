@@ -18,7 +18,7 @@ object ConnectionListener : Listener {
 
     @EventHandler
     fun onPrePlayerLogin(event: PlayerLoginEvent) {
-        if (event.player.hasPermission("concerto.fullbypass")) event.allow()
+        if (event.player.hasPermission("concerto.fullbypass") && event.result == PlayerLoginEvent.Result.KICK_FULL) event.allow()
     }
 
     @EventHandler
