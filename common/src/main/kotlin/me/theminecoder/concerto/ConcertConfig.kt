@@ -1,5 +1,7 @@
 package me.theminecoder.concerto
 
+import java.io.File
+import java.io.FileReader
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.fixedRateTimer
 import kotlin.time.ExperimentalTime
@@ -33,6 +35,7 @@ data class Position(val x: Double, val y: Double, val z: Double)
 
 @OptIn(ExperimentalTime::class)
 object ConcertConfig {
+
     lateinit var current: Config
         private set
 
@@ -44,6 +47,6 @@ object ConcertConfig {
     }
 
     private fun reload() {
-        TODO("Where to get config?????")
+        current = GSON.fromJson(FileReader(File("config.json")), Config::class.java)
     }
 }

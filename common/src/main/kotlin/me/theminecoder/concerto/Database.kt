@@ -25,6 +25,7 @@ private val databaseConfig: DatabaseConfig by lazy {
     GSON.fromJson(File("database.json").readText(), DatabaseConfig::class.java)
 }
 
+// this is pre coroutines for me, please be nice
 object AsyncDatabase {
     private val threadCount = AtomicInteger(0)
     private val executorService =
